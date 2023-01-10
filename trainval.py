@@ -324,4 +324,4 @@ if __name__ == "__main__":
                 datadir=args.datadir,
                 reset=args.reset,
                 im_size = args.im_size,
-                num_workers=args.num_workers,args.augmentation)
+                num_workers=args.num_workers)
