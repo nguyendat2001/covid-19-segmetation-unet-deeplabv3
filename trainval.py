@@ -118,7 +118,7 @@ def get_validation_augmentation():
     return albu.Compose(test_transform)
 
 
-def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0):
+def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0, aug=True):
     # bookkeepting stuff
     # ==================
     pprint.pprint(exp_dict)
@@ -139,21 +139,39 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
     # ==================
     # train set
     # nthai 2007 : add para im_size
-    train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
-                                     split="train",
-                                     datadir=datadir,
-                                     exp_dict=exp_dict,
-                                     im_size = im_size,
-                                     dataset_size=exp_dict['dataset_size'],
-                                     augmentation=get_training_augmentation())
-    # val set
-    val_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
-                                   split="val",
-                                   datadir=datadir,
-                                   exp_dict=exp_dict,
-                                   im_size = im_size,
-                                   dataset_size=exp_dict['dataset_size'],
-                                   augmentation=get_validation_augmentation())
+    
+    if aug == False:
+        train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
+                                         split="train",
+                                         datadir=datadir,
+                                         exp_dict=exp_dict,
+                                         im_size = im_size,
+                                         dataset_size=exp_dict['dataset_size'],
+                                         augmentation=None)
+        # val set
+        val_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
+                                       split="val",
+                                       datadir=datadir,
+                                       exp_dict=exp_dict,
+                                       im_size = im_size,
+                                       dataset_size=exp_dict['dataset_size'],
+                                       augmentation=None)
+    else :
+        train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
+                                         split="train",
+                                         datadir=datadir,
+                                         exp_dict=exp_dict,
+                                         im_size = im_size,
+                                         dataset_size=exp_dict['dataset_size'],
+                                         augmentation=get_training_augmentation())
+        # val set
+        val_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
+                                       split="val",
+                                       datadir=datadir,
+                                       exp_dict=exp_dict,
+                                       im_size = im_size,
+                                       dataset_size=exp_dict['dataset_size'],
+                                       augmentation=get_validation_augmentation())
 
     val_sampler = torch.utils.data.SequentialSampler(val_set)
     val_loader = DataLoader(val_set,
@@ -266,6 +284,7 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--test", type=bool, default=False)   
     parser.add_argument("-i", "--im_size", type=int, default=512) # image size for input
     parser.add_argument('-o', '--opt', default='adam') # optimizer adam or SGD 
+    parser.add_argument('-ag', '--augmentation', type=bool, default=True) # optimizer adam or SGD 
 
     args = parser.parse_args()
 
@@ -298,11 +317,11 @@ if __name__ == "__main__":
 
         exp_dict['batch_size'] = args.batch_size
         exp_dict['test'] = args.test
-        exp_dict["optimizer"] = args.opt
+        exp_dict["augmentation"] = args.augmentation
 
         trainval(exp_dict=exp_dict,
                 savedir_base=args.savedir_base,
                 datadir=args.datadir,
                 reset=args.reset,
                 im_size = args.im_size,
-                num_workers=args.num_workers)
+                num_workers=args.num_workers,aug = args.augmentation)
