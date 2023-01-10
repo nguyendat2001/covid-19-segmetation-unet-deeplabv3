@@ -118,7 +118,7 @@ def get_validation_augmentation():
     return albu.Compose(test_transform)
 
 
-def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0, aug):
+def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0):
     # bookkeepting stuff
     # ==================
     pprint.pprint(exp_dict)
