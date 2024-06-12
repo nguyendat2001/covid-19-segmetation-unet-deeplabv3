@@ -170,7 +170,7 @@ def confusion_multi_class(prediction, truth, labels):
 
     # print(cf2)
     cf2 = cf2.cpu().numpy()
-    cf1 =  np.zeros((nclasses, nclasses), dtype=np.float)
+    cf1 =  np.zeros((nclasses, nclasses), dtype=np.float64)
     cf1[0:3, 0:3] = cf2[0:3, 0:3]
     # return cf2.cpu().numpy()
     return cf1
