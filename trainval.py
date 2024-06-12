@@ -142,13 +142,14 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
     
     if exp_dict['augmentation'] == False:
     
-        train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
+        train_set = datasets.get_dataset(True,dataset_dict=exp_dict["dataset"],
                                          split="train",
                                          datadir=datadir,
                                          exp_dict=exp_dict,
                                          im_size = im_size,
                                          dataset_size=exp_dict['dataset_size'],
-                                         augmentation=None)
+                                         augmentation=None,
+                                         isZenodoOpenSource = exp_dict['zenodo_ds'])
         # val set
         val_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
                                        split="val",
@@ -156,7 +157,8 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
                                        exp_dict=exp_dict,
                                        im_size = im_size,
                                        dataset_size=exp_dict['dataset_size'],
-                                       augmentation=None)
+                                       augmentation=None,
+                                       isZenodoOpenSource = exp_dict['zenodo_ds'])
         
     else :
         train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
@@ -165,7 +167,8 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
                                          exp_dict=exp_dict,
                                          im_size = im_size,
                                          dataset_size=exp_dict['dataset_size'],
-                                         augmentation=get_training_augmentation())
+                                         augmentation=get_training_augmentation(),
+                                         isZenodoOpenSource = exp_dict['zenodo_ds'])
         # val set
         val_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
                                        split="val",
@@ -173,7 +176,8 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
                                        exp_dict=exp_dict,
                                        im_size = im_size,
                                        dataset_size=exp_dict['dataset_size'],
-                                       augmentation=get_validation_augmentation())
+                                       augmentation=get_validation_augmentation(),
+                                       isZenodoOpenSource = exp_dict['zenodo_ds'])
 
     val_sampler = torch.utils.data.SequentialSampler(val_set)
     val_loader = DataLoader(val_set,
@@ -286,6 +290,7 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--test", type=bool, default=False)   
     parser.add_argument("-i", "--im_size", type=int, default=512) # image size for input
     parser.add_argument('-o', '--opt', default='adam') # optimizer adam or SGD 
+    parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
     parser.add_argument('-ag', '--augmentation', type=bool, default=False) # augmentation
 
     args = parser.parse_args()
@@ -320,6 +325,7 @@ if __name__ == "__main__":
         exp_dict['batch_size'] = args.batch_size
         exp_dict['test'] = args.test
         exp_dict["augmentation"] = args.augmentation
+        exp_dict["zenodo_ds"] = args.zenodo_ds
 
         trainval(exp_dict=exp_dict,
                 savedir_base=args.savedir_base,
