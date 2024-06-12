@@ -51,7 +51,7 @@ class VinDataset(torch.utils.data.Dataset):
                                    'lung': lung_name}]
 
         # get label_meta
-        fname = os.path.join(datadir, 'tmp', 'labels_array.pkl')
+        fname = os.path.join('./tmp', 'labels_array.pkl')
         if not os.path.exists(fname):
             labels_array = np.zeros((len(self.img_tgt_dict), 3))
             for i, idict in enumerate(tqdm.tqdm(self.img_tgt_dict)):
