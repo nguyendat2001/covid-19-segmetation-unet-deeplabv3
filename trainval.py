@@ -79,7 +79,7 @@ def get_training_augmentation():
         albu.RandomCrop(height=512, width=512, always_apply=True),
 
         # albu.IAAAdditiveGaussianNoise(p=0.2),
-        albu.IAAPerspective(p=0.5),
+        albu.Perspective(p=0.5),
 
 #         albu.OneOf(
 #             [
