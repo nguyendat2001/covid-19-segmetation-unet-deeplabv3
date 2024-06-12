@@ -92,7 +92,7 @@ def get_training_augmentation():
 
         albu.OneOf(
             [
-                albu.Sharpen(p=1),
+                albu.IAASharpen(p=1),
                 albu.Blur(blur_limit=3, p=1),
                 albu.MotionBlur(blur_limit=3, p=1),
             ],
