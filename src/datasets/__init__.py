@@ -19,7 +19,7 @@ from PIL import Image
 
 # nthai 2007 : add para im_size=512
 
-def get_dataset( split, datadir, exp_dict, im_size, dataset_size=None, augmentation=None, 
+def get_dataset(dataset_dict ,split, datadir, exp_dict, im_size, dataset_size=None, augmentation=None, 
         preprocessing=None, isZenodoOpenSource = False,):
     if( isZenodoOpenSource == True):
         dataset = open_source_zenodo.OpenSourceCovid19_2(split=split, datadir=datadir, exp_dict=exp_dict,im_size=im_size,augmentation=augmentation, preprocessing=preprocessing,)
