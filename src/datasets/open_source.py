@@ -38,14 +38,14 @@ class OpenSource(torch.utils.data.Dataset):
 
         self.img_tgt_dict = []
         for tgt_name in os.listdir(self.tgt_path):
-            print(tgt_name)
+            
             lung_name = os.path.join(self.lung_path, tgt_name)
             scan_id, slice_id = tgt_name.split('_')
             slice_id = str(int(slice_id.replace('z', '').replace('.png', ''))).zfill(4)
             img_name = [f for f in os.listdir(os.path.join(self.img_path, 
                                     'DCM'+scan_id)) if 's%s' % slice_id in f][0]
             img_name = os.path.join('DCM'+scan_id, img_name)
-
+            print(tgt_name)
             self.img_tgt_dict += [{'img': img_name, 
                                    'tgt': tgt_name,
                                    'lung': lung_name}]
