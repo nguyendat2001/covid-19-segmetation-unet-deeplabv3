@@ -142,7 +142,7 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
     
     if exp_dict['augmentation'] == False:
     
-        train_set = datasets.get_dataset(True,dataset_dict=exp_dict["dataset"],
+        train_set = datasets.get_dataset(dataset_dict=exp_dict["dataset"],
                                          split="train",
                                          datadir=datadir,
                                          exp_dict=exp_dict,
