@@ -67,9 +67,9 @@ class OpenSourceCovid19_2(torch.utils.data.Dataset):
         ind_list = np.where(labels_array[:,1:].max(axis=1))[0]
         self.img_tgt_dict = np.array(self.img_tgt_dict)[ind_list]
         if split == 'train':
-            self.img_tgt_dict = self.img_tgt_dict[:len(self.img_tgt_dict)*0.8]
+            self.img_tgt_dict = self.img_tgt_dict[:1400]
         elif split == 'val':
-            self.img_tgt_dict = self.img_tgt_dict[len(self.img_tgt_dict)*0.8:]
+            self.img_tgt_dict = self.img_tgt_dict[1400:]
 
     # nthai2007
     def __getitem__(self, i):
