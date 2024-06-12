@@ -38,8 +38,8 @@ class OpenSourceCovid19_2(torch.utils.data.Dataset):
 
         self.img_tgt_dict = []
         for file_name in os.listdir(self.tgt_path):
-            print("file_name")
-            print(file_name)
+            # print("file_name")
+            # print(file_name)
             tgt_name = os.path.join(self.tgt_path, file_name)
             lung_name = os.path.join(self.lung_path, file_name)
             img_name = os.path.join(self.img_path, file_name)
