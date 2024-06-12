@@ -51,7 +51,8 @@ def test(exp_dict, savedir_base, datadir, im_size, num_workers=0, scan_id=None,s
                                    datadir=datadir,
                                    exp_dict=exp_dict,
                                    im_size=im_size,
-                                   dataset_size=exp_dict['dataset_size'])
+                                   dataset_size=exp_dict['dataset_size'],
+                                   isZenodoOpenSource = exp_dict['zenodo_ds'])
     if str(scan_id) != 'None':
         test_set.active_data = test_set.get_scan(scan_id)
     test_sampler = torch.utils.data.SequentialSampler(test_set)
@@ -140,6 +141,8 @@ if __name__ == "__main__":
     parser.add_argument("-si", "--scan_id", type=str, default=None)
     parser.add_argument("-t", "--test", type=bool, default=True)
     parser.add_argument("-i", "--im_size", type=int, default=512) # image size for input
+    parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
+
 
 
     args = parser.parse_args()
@@ -165,6 +168,8 @@ if __name__ == "__main__":
 
     # Run experiments or View them
     # ----------------------------
+    exp_dict["zenodo_ds"] = args.zenodo_ds
+
     for exp_dict in exp_list:
         exp_dict['test'] = args.test
         # do trainval
