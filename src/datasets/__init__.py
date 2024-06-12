@@ -5,7 +5,7 @@ from torchvision.transforms import transforms
 from sklearn.utils import shuffle
 from PIL import Image
 from . import open_source
-from datasets.open_source_zenodo import OpenSourceCovid19_2
+from open_source_zenodo import OpenSourceCovid19_2
 from src import utils as ut
 import os
 import os
