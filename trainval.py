@@ -78,7 +78,7 @@ def get_training_augmentation():
         albu.PadIfNeeded(min_height=512, min_width=512, always_apply=True, border_mode=0),
         albu.RandomCrop(height=512, width=512, always_apply=True),
 
-        albu.IAAAdditiveGaussianNoise(p=0.2),
+        # albu.IAAAdditiveGaussianNoise(p=0.2),
         albu.IAAPerspective(p=0.5),
 
 #         albu.OneOf(
