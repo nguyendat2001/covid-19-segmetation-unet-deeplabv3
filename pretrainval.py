@@ -118,7 +118,7 @@ def get_validation_augmentation():
     return albu.Compose(test_transform)
 
 
-def pretrainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0):
+def pretrainval(pretrain_dir,exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0):
     # bookkeepting stuff
     # ==================
     pprint.pprint(exp_dict)
@@ -126,9 +126,16 @@ def pretrainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_worker
     exp_id = '{}_{}'.format(exp_dict['model']['base'], exp_dict['model']['encoder'])
     savedir = os.path.join(savedir_base, exp_id)
 
+    if reset:
+        try:
+            hc.delete_and_backup_experiment(savedir)
+        except:
+            delete_and_backup_experiment(savedir)
+
     os.makedirs(savedir, exist_ok=True)
     hu.save_json(os.path.join(savedir, "exp_dict.json"), exp_dict)
     print("Experiment saved in %s" % savedir)
+
 
     # Dataset
     # ==================
@@ -195,8 +202,8 @@ def pretrainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_worker
                              train_set=train_set).cpu()
 
     # model.opt = optimizers.get_optim(exp_dict['opt'], model)
-    model_path = os.path.join(savedir, "model.pth")
-    score_list_path = os.path.join(savedir, "score_list.pkl")
+    model_path = os.path.join(pretrain_dir, "model.pth")
+    score_list_path = os.path.join(pretrain_dir, "score_list.pkl")
 
     if os.path.exists(score_list_path):
         # resume experiment
@@ -287,7 +294,7 @@ if __name__ == "__main__":
     parser.add_argument('-o', '--opt', default='adam') # optimizer adam or SGD 
     parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
     parser.add_argument('-ag', '--augmentation', type=bool, default=False) # augmentation
-    parser.add_argument('-ep', '--epoch', type=int, default=20) # augmentation
+    parser.add_argument('-pd', '--pretrain_dir',  default='CovidSeg/save') # pretrain dir using for load training result
 
     args = parser.parse_args()
 
@@ -322,9 +329,9 @@ if __name__ == "__main__":
         exp_dict['test'] = args.test
         exp_dict["augmentation"] = args.augmentation
         exp_dict["zenodo_ds"] = args.zenodo_ds
-        exp_dict['max_epoch'] = args.epoch
 
-        pretrainval(exp_dict=exp_dict,
+        pretrainval(pretrain_dir=args.pretrain_dir,
+                exp_dict=exp_dict,
                 savedir_base=args.savedir_base,
                 datadir=args.datadir,
                 reset=args.reset,
