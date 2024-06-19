@@ -218,7 +218,8 @@ def trainval(exp_dict, savedir_base, datadir,im_size, reset=False, num_workers=0
     print("Starting experiment at epoch %d" % (s_epoch))
     vis_loader = DataLoader(val_set, shuffle=False, batch_size=1, num_workers=num_workers,
                             collate_fn=ut.collate_fn)
-
+    # print("len(val_set)")
+    # print(len(val_set))
     train_sampler = torch.utils.data.RandomSampler(
         train_set, replacement=True, num_samples=2*len(val_set))
 

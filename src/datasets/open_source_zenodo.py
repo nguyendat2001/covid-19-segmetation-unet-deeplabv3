@@ -38,10 +38,11 @@ class OpenSourceCovid19_2(torch.utils.data.Dataset):
 
         self.img_tgt_dict = []
         for file_name in os.listdir(self.tgt_path):
+            # print("file_name")
+            # print(file_name)
             tgt_name = os.path.join(self.tgt_path, file_name)
             lung_name = os.path.join(self.lung_path, file_name)
             img_name = os.path.join(self.img_path, file_name)
-
             self.img_tgt_dict += [{'img': img_name, 
                                    'tgt': tgt_name,
                                    'lung': lung_name}]
@@ -63,6 +64,7 @@ class OpenSourceCovid19_2(torch.utils.data.Dataset):
             hu.save_pkl(fname, labels_array)
 
         labels_array = hu.load_pkl(fname)
+        # print(labels_array.shape)
         # self.np.where(labels_array[:,1:].max(axis=1))
         ind_list = np.where(labels_array[:,1:].max(axis=1))[0]
         self.img_tgt_dict = np.array(self.img_tgt_dict)[ind_list]
