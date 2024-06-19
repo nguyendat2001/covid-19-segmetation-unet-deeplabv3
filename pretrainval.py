@@ -202,13 +202,15 @@ def pretrainval(pretrain_dir,exp_dict, savedir_base, datadir,im_size, reset=Fals
                              train_set=train_set).cpu()
 
     # model.opt = optimizers.get_optim(exp_dict['opt'], model)
-    model_path = os.path.join(pretrain_dir, "model.pth")
-    score_list_path = os.path.join(pretrain_dir, "score_list.pkl")
+    model_path_pretrain = os.path.join(pretrain_dir, "model.pth")
+    score_list_path_pretrain = os.path.join(pretrain_dir, "score_list.pkl")
+    model_path = os.path.join(savedir, "model.pth")
+    score_list_path = os.path.join(savedir, "score_list.pkl")
 
-    if os.path.exists(score_list_path):
+    if os.path.exists(score_list_path_pretrain):
         # resume experiment
-        model.load_state_dict(hu.torch_load(model_path))
-        score_list = hu.load_pkl(score_list_path)
+        model.load_state_dict(hu.torch_load(model_path_pretrain))
+        score_list = hu.load_pkl(score_list_path_pretrain)
         s_epoch = score_list[-1]['epoch'] + 1
     else:
         # restart experiment
