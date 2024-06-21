@@ -292,6 +292,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--im_size", type=int, default=512) # image size for input
     parser.add_argument('-o', '--opt', default='adam') # optimizer adam or SGD 
     parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
+    parser.add_argument('-bi', '--binary',type=bool, default=False) # chose open source Dataset
     parser.add_argument('-ag', '--augmentation', type=bool, default=False) # augmentation
 
     args = parser.parse_args()
@@ -327,6 +328,7 @@ if __name__ == "__main__":
         exp_dict['test'] = args.test
         exp_dict["augmentation"] = args.augmentation
         exp_dict["zenodo_ds"] = args.zenodo_ds
+        exp_dict["binary"] = args.binary
 
         trainval(exp_dict=exp_dict,
                 savedir_base=args.savedir_base,

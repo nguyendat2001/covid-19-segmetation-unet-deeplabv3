@@ -87,10 +87,13 @@ class OpenSourceCovid19_2(torch.utils.data.Dataset):
         # plt.imshow(image, cmap=plt.cm.bone) 
         # plt.show()
         # read lung mask
-        lung_mask = np.array(Image.open(os.path.join(lung_name)).resize((self.im_size, self.im_size)))
-        mask = np.zeros(lung_mask.shape)
-        mask[lung_mask!= 0] = 1
-        mask[tgt_mask!= 0] = 2
+        mask = np.zeros(tgt_mask.shape)
+        if self.exp_dict["binary"]:
+            mask[tgt_mask!= 0] = 1
+        else:
+            lung_mask = np.array(Image.open(os.path.join(lung_name)).resize((self.im_size, self.im_size)))
+            mask[lung_mask!= 0] = 1
+            mask[tgt_mask!= 0] = 2
 
         # if self.augmentation:
         #     sample = self.augmentation(image=image, mask=mask)
