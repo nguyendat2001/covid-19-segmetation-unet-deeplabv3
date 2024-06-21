@@ -142,6 +142,8 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--test", type=bool, default=True)
     parser.add_argument("-i", "--im_size", type=int, default=512) # image size for input
     parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
+    parser.add_argument('-bi', '--binary',type=bool, default=False) # chose open source Dataset
+
 
 
 
@@ -169,6 +171,8 @@ if __name__ == "__main__":
     # Run experiments or View them
     # ----------------------------
     exp_dict["zenodo_ds"] = args.zenodo_ds
+    exp_dict["binary"] = args.binary
+
 
     for exp_dict in exp_list:
         exp_dict['test'] = args.test
