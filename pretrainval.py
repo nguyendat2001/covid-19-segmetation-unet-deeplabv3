@@ -297,6 +297,7 @@ if __name__ == "__main__":
     parser.add_argument('-ze', '--zenodo_ds',type=bool, default=False) # chose open source Dataset
     parser.add_argument('-ag', '--augmentation', type=bool, default=False) # augmentation
     parser.add_argument('-pd', '--pretrain_dir',  default='CovidSeg/save') # pretrain dir using for load training result
+    parser.add_argument('-bi', '--binary',type=bool, default=False) # chose open source Dataset
 
     args = parser.parse_args()
 
@@ -331,6 +332,7 @@ if __name__ == "__main__":
         exp_dict['test'] = args.test
         exp_dict["augmentation"] = args.augmentation
         exp_dict["zenodo_ds"] = args.zenodo_ds
+        exp_dict["binary"] = args.binary
 
         pretrainval(pretrain_dir=args.pretrain_dir,
                 exp_dict=exp_dict,
