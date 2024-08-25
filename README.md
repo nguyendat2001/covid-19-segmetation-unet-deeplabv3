@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The COVID-19 pandemic has posed a significant challenge to global healthcare systems. Medical imaging, particularly computed tomography (CT) scans, plays a vital role in the diagnosis and management of COVID-19. Accurate segmentation of infected regions in lung CT scans can assist radiologists in assessing the severity of the infection and planning treatment. This study leverages deep learning techniques to automate the segmentation process, aiming to improve accuracy and efficiency.
+In the fight against COVID-19, precise and prompt patient diagnosis is essential for managing the disease and preventing its spread. A recent study investigated the use of transfer learning with various architectures like Densenet, Gernet, and SeNet, alongside decoder models such as Unet++, Deeplabv3, and Deeplabv3+, to identify pulmonary and COVID-19 infection regions. Using a dataset from the Italian Society of Medical and Interventional Radiology (SIRM), which included both positive and negative samples, Unet++ with Densenet161 achieved the best results in specificity, sensitivity, Dice coefficient, and IoU, with scores of 87.6%, 91.7%, 89.6%, and 81.1%, respectively. These advancements are expected to enhance diagnostic accuracy and efficiency, helping doctors to save time, reduce costs, and better manage the pandemic.
 
 ## Dataset
 
