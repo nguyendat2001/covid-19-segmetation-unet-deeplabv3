@@ -10,10 +10,6 @@ The dataset utilized in this study consists of annotated lung CT scans from COVI
 
 ## Methodology
 
-### Data Preprocessing
-
-The CT scans undergo several preprocessing steps, including normalization, resizing, and augmentation. These steps are crucial to ensure the model generalizes well to different variations in the input data.
-
 ### Model Architecture
 
 We employ a modified U-Net++ architecture for segmentation. The U-Net++ model consists of an encoder-decoder structure with skip connections, allowing for efficient localization and precise segmentation. The encoder captures context through successive downsampling, while the decoder reconstructs the segmentation map through upsampling.
