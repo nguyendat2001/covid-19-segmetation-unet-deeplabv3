@@ -1,11 +1,5 @@
 # COVID-19 Segmentation Using Deep Learning
 
-**Authors:** [Your Name](https://github.com/yourusername), [Contributor 2](https://github.com/contributor2)
-
-## Abstract
-
-Accurate segmentation of COVID-19 infections in lung CT scans is crucial for diagnosis and treatment planning. In this paper, we present a deep learning-based approach using a modified U-Net architecture for semantic segmentation of COVID-19 affected regions. Our model demonstrates significant improvements over traditional methods, achieving a Dice coefficient of 0.87 and an IoU of 0.85 on the test dataset.
-
 ## Introduction
 
 The COVID-19 pandemic has posed a significant challenge to global healthcare systems. Medical imaging, particularly computed tomography (CT) scans, plays a vital role in the diagnosis and management of COVID-19. Accurate segmentation of infected regions in lung CT scans can assist radiologists in assessing the severity of the infection and planning treatment. This study leverages deep learning techniques to automate the segmentation process, aiming to improve accuracy and efficiency.
@@ -30,23 +24,16 @@ We employ a modified U-Net++ architecture for segmentation. The U-Net++ model co
 The model is trained using a combination of binary cross-entropy and Dice loss, which helps in handling class imbalance and improving segmentation accuracy. The training process is carried out using the Adam optimizer with a learning rate of 1e-4. The model is trained for 100 epochs with a batch size of 2.
 
 ```sh
-python train.py --data_dir path/to/dataset --epochs 50 --batch_size 16
-
 ## Implementation
 
-### Requirements
+### training
 
-To run the code, you need the following dependencies:
+python trainval.py --encoder densenet201 --base unetplus --datadir /dataset --savedir_base ./figures_no_augment 
 
-- Python 3.8+
-- TensorFlow 2.x
-- Keras
-- NumPy
-- OpenCV
-- scikit-learn
-- matplotlib
+### Testing
 
-You can install the required packages using:
+python test.py --datadir /dataset --savedir_base /figures_no_augment -ei unetplus_densenet201
+
 
 ```sh
 pip install -r requirements.txt
